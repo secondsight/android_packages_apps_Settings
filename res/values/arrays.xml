@@ -916,4 +916,26 @@
         <!-- Always allow app to send to premium SMS short code. -->
         <item>Always allow</item>
     </string-array>
+	
+		
+    <!-- Values for Aether3D effect type -->
+    <string-array name="preferences_interface_3d_distortion_entries">
+        <item>No Effect</item>
+        <item>Oculus Rift</item>
+    </string-array>
+    <string-array name="preferences_interface_3d_distortion_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>	
+		
+    <!-- Values for Aether3D filter type -->
+    <string-array name="preferences_interface_3d_filter_entries">
+        <item>Complimentary Filter</item>
+        <item>Kalman Filter</item>
+    </string-array>
+    <string-array name="preferences_interface_3d_filter_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+	
 </resources>

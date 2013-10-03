@@ -98,5 +98,12 @@
         <attr name="max" format="float" />
         <attr name="defaultValue" format="float" />
         <attr name="digits" format="integer" />
+    </declare-styleable>    
+	
+    <declare-styleable name="SeekBarDialogPreference">
+        <attr name="smax" format="integer"/>
+        <attr name="smin" format="integer"/>
+        <attr name="prefix" format="string" />
+        <attr name="suffix" format="string" />
     </declare-styleable>
 </resources>
