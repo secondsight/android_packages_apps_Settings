@@ -20,7 +20,7 @@
     android:title="@string/preferences_interface_3d_title">
 
     <SwitchPreference android:key="ui_3d_enable_mirror"
-            android:title="@string/preferences_interface_3d_enable_sensor"
+            android:title="@string/preferences_interface_3d_enable_mirror"
             android:defaultValue="true"/>			
             
     <com.android.settings.aether3d.SeekBarDialogPreference android:key="ui_3d_z_scale"
