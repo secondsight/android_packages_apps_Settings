@@ -1008,7 +1008,7 @@ two in order to insert additional control points. \'Remove\' deletes the selecte
     <string name="preferences_interface_3d_cam_rotation_summary">Change camera rotation </string>   
     <string name="preferences_interface_3d_cam_position_title">Camera distance</string>
     <string name="preferences_interface_3d_cam_position_summary">Change camera distance </string>     
-    <string name="preferences_interface_3d_cam_fov_title">Camera Filed of View</string> 
+    <string name="preferences_interface_3d_cam_fov_title">Camera Field of View</string>
 	<string name="preferences_interface_3d_enable_sensor">Enable Sensor</string>
     <string name="preferences_interface_3d_sensor_reset_acceleration_title">Sensor reset acceleration</string>
     <string name="preferences_interface_3d_sensor_reset_acceleration_summary">Sensor reset acceleration</string>    
