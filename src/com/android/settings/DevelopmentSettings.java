@@ -358,6 +358,8 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         if (!removePreferenceIfPackageNotInstalled(mDevelopmentTools)) {
             mAllPrefs.add(mDevelopmentTools);
         }
+		
+		mDisableOverlays.setEnabled(false);
     }
 
     private ListPreference addListPreference(String prefKey) {
