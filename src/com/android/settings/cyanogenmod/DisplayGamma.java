@@ -21,6 +21,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -55,7 +56,6 @@ public class DisplayGamma extends DialogPreference {
     private String[][] mCurrentColors;
     private String[] mOriginalColors;
     private int mNumberOfControls;
-    private int mMin;
 
     public DisplayGamma(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -65,8 +65,6 @@ public class DisplayGamma extends DialogPreference {
         }
 
         mNumberOfControls = DisplayGammaCalibration.getNumberOfControls();
-        mMin = DisplayGammaCalibration.getMinValue();
-
         mSeekBars = new GammaSeekBar[mNumberOfControls][BAR_COLORS.length];
 
         mOriginalColors = new String[mNumberOfControls];
@@ -92,6 +90,8 @@ public class DisplayGamma extends DialogPreference {
         final ViewGroup container = (ViewGroup) view.findViewById(R.id.gamma_container);
         final LayoutInflater inflater = LayoutInflater.from(getContext());
         final SharedPreferences prefs = getSharedPreferences();
+        final Resources res = container.getResources();
+        final String[] gammaDescriptors = res.getStringArray(R.array.gamma_descriptors);
 
         // Create multiple sets of seekbars, depending on the
         // number of controls the device has
@@ -102,6 +102,19 @@ public class DisplayGamma extends DialogPreference {
             final String defaultKey = "display_gamma_default_" + index;
             if (!prefs.contains(defaultKey)) {
                 prefs.edit().putString(defaultKey, mOriginalColors[index]).commit();
+            }
+
+            if (mNumberOfControls != 1) {
+                TextView header = (TextView) inflater.inflate(
+                        R.layout.display_gamma_calibration_header, container, false);
+
+                if (index < gammaDescriptors.length) {
+                    header.setText(gammaDescriptors[index]);
+                } else {
+                    header.setText(res.getString(
+                            R.string.gamma_tuning_control_set_header, index + 1));
+                }
+                container.addView(header);
             }
 
             for (int color = 0; color < BAR_COLORS.length; color++) {
@@ -277,6 +290,7 @@ public class DisplayGamma extends DialogPreference {
         private int mControlIndex;
         private int mColorIndex;
         private int mOriginal;
+        private int mMin;
         private SeekBar mSeekBar;
         private TextView mValue;
 
@@ -284,18 +298,15 @@ public class DisplayGamma extends DialogPreference {
             mControlIndex = controlIndex;
             mColorIndex = colorIndex;
 
+            mMin = DisplayGammaCalibration.getMinValue(controlIndex);
+
             mValue = (TextView) container.findViewById(R.id.color_value);
             mSeekBar = (SeekBar) container.findViewById(R.id.color_seekbar);
 
             TextView label = (TextView) container.findViewById(R.id.color_text);
-            CharSequence color = container.getContext().getString(BAR_COLORS[colorIndex]);
-            if (mNumberOfControls == 1) {
-                label.setText(color);
-            } else {
-                label.setText(color + " " + (controlIndex + 1));
-            }
+            label.setText(container.getContext().getString(BAR_COLORS[colorIndex]));
 
-            mSeekBar.setMax(DisplayGammaCalibration.getMaxValue() - mMin);
+            mSeekBar.setMax(DisplayGammaCalibration.getMaxValue(controlIndex) - mMin);
             mSeekBar.setProgress(0);
             mValue.setText(String.valueOf(mSeekBar.getProgress() + mMin));
 
